@@ -15,7 +15,7 @@ public class DocumentManagerView extends JFrame {
     private final JButton deleteButton;
     private final JButton searchButton;
     private final JButton editButton;
-    private final JButton saveChangesButton; // Novo botão para salvar alterações
+    private final JButton saveChangesButton;
 
     public DocumentManagerView() {
         setTitle("Gerenciador de Documentos");
@@ -24,12 +24,11 @@ public class DocumentManagerView extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
-        // Painel Superior (Cadastro)
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBorder(BorderFactory.createTitledBorder("Cadastro de Documentos"));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); // Adicionando margens entre os componentes
-        gbc.anchor = GridBagConstraints.EAST; // Alinhando os componentes à direita
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.EAST;
 
         titleField = new JTextField(20);
         authorField = new JTextField(20);
@@ -66,12 +65,10 @@ public class DocumentManagerView extends JFrame {
 
         add(formPanel, BorderLayout.NORTH);
 
-        // Painel Central (Tabela de Documentos)
         documentTable = new JTable(new DefaultTableModel(new Object[]{"Título", "Autor", "Data de Criação"}, 0));
         documentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         add(new JScrollPane(documentTable), BorderLayout.CENTER);
 
-        // Painel Inferior (Busca e Ações)
         JPanel actionPanel = new JPanel(new GridLayout(1, 2, 10, 10));
 
         JPanel searchPanel = new JPanel(new BorderLayout(5, 5));
@@ -84,13 +81,13 @@ public class DocumentManagerView extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         loadButton = new JButton("Carregar Dados");
         deleteButton = new JButton("Excluir");
-        editButton = new JButton("Editar"); // Botão para editar
-        saveChangesButton = new JButton("Salvar Alterações"); // Novo botão de "Salvar Alterações"
-        saveChangesButton.setEnabled(false); // Inicialmente desabilitado
+        editButton = new JButton("Editar");
+        saveChangesButton = new JButton("Salvar Alterações");
+        saveChangesButton.setEnabled(false);
         buttonPanel.add(loadButton);
         buttonPanel.add(deleteButton);
-        buttonPanel.add(editButton); // Adicionando o botão de editar
-        buttonPanel.add(saveChangesButton); // Adicionando o botão de "Salvar Alterações"
+        buttonPanel.add(editButton);
+        buttonPanel.add(saveChangesButton);
 
         actionPanel.add(searchPanel);
         actionPanel.add(buttonPanel);
@@ -154,29 +151,24 @@ public class DocumentManagerView extends JFrame {
         dateField.setText("");
     }
 
-    // Habilitar modo de edição
     public void enableEditMode() {
-        // Habilitar os campos de texto para edição
         titleField.setEditable(true);
         authorField.setEditable(true);
         dateField.setEditable(true);
-        saveButton.setEnabled(false); // Desabilita o botão "Salvar"
-        saveChangesButton.setEnabled(true); // Habilita o botão "Salvar Alterações"
+        saveButton.setEnabled(false);
+        saveChangesButton.setEnabled(true);
     }
 
-    // Desabilitar modo de edição
     public void disableEditMode() {
         titleField.setEditable(false);
         authorField.setEditable(false);
         dateField.setEditable(false);
-        saveButton.setEnabled(true); // Habilita o botão "Salvar"
-        saveChangesButton.setEnabled(false); // Desabilita o botão "Salvar Alterações"
+        saveButton.setEnabled(true);
+        saveChangesButton.setEnabled(false);
     }
 
     private void saveChanges() {
-        // Implementar a lógica para salvar as alterações no documento
-        // Aqui você pode pegar os valores dos campos e chamar o método correspondente no controlador
         System.out.println("Alterações salvas!");
-        disableEditMode(); // Desabilita o modo de edição após salvar as alterações
+        disableEditMode();
     }
 }

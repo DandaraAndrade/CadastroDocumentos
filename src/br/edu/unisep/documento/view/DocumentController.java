@@ -223,7 +223,6 @@ public class DocumentController {
     }
 
     private void resetFieldHighlighting() {
-
         view.getTitleField().setBackground(Color.WHITE);
         view.getAuthorField().setBackground(Color.WHITE);
         view.getDateField().setBackground(Color.WHITE);

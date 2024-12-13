@@ -10,36 +10,32 @@ public class DocumentUtils {
     private static final String FILE_PATH = "documents.csv";
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
-    // Verifica se o arquivo existe, e cria se não existir
     private static void ensureFileExists() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             try {
-                file.createNewFile(); // Cria o arquivo caso não exista
+                file.createNewFile();
             } catch (IOException e) {
                 System.err.println("Erro ao criar o arquivo: " + e.getMessage());
             }
         }
     }
 
-    // Salvar um novo documento
     public static boolean saveDocument(Document document) {
-        ensureFileExists(); // Garante que o arquivo exista
+        ensureFileExists();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(document.toString());
             writer.newLine();
-            return true;  // Retorna verdadeiro se o documento for salvo com sucesso
+            return true;
         } catch (IOException e) {
             System.err.println("Erro ao salvar o documento: " + e.getMessage());
         }
         return false;
     }
 
-    // Carregar todos os documentos
     public static List<Document> loadDocuments() {
-        ensureFileExists(); // Garante que o arquivo exista
-
+        ensureFileExists();
         List<Document> documents = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
@@ -51,38 +47,33 @@ public class DocumentUtils {
         }
         return documents;
     }
-
-    // Excluir um documento
     public static boolean deleteDocument(String title) {
         List<Document> documents = loadDocuments();
         boolean removed = documents.removeIf(doc -> doc.getTitle().equals(title));
 
         if (removed) {
-            saveAllDocuments(documents);  // Regrava a lista de documentos
+            saveAllDocuments(documents);
             return true;
         }
         return false;
     }
 
-    // Atualizar um documento existente
     public static boolean updateDocument(String title, Document newDocument) {
         List<Document> documents = loadDocuments();
 
         for (int i = 0; i < documents.size(); i++) {
             Document doc = documents.get(i);
             if (doc.getTitle().equals(title)) {
-                // Substitui o documento existente pelo novo
                 documents.set(i, newDocument);
                 saveAllDocuments(documents);  // Regrava todos os documentos
                 return true;
             }
         }
-        return false;  // Retorna falso se o documento com o título não for encontrado
+        return false;
     }
 
-    // Salvar todos os documentos de volta no arquivo
     private static void saveAllDocuments(List<Document> documents) {
-        ensureFileExists(); // Garante que o arquivo exista
+        ensureFileExists();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Document doc : documents) {
@@ -94,7 +85,6 @@ public class DocumentUtils {
         }
     }
 
-    // Verificar se a data fornecida é válida
     public static boolean isValidDate(String date) {
         try {
             DATE_FORMAT.setLenient(false);
@@ -105,12 +95,10 @@ public class DocumentUtils {
         }
     }
 
-    // Método para gerar uma representação de string de um documento
     public static String documentToString(Document document) {
         return document.getTitle() + ";" + document.getAuthor() + ";" + document.getDate();
     }
 
-    // Método para criar um documento a partir de uma string
     public static Document fromString(String line) {
         String[] parts = line.split(";");
         if (parts.length == 3) {

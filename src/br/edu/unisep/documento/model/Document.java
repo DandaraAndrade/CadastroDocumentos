@@ -1,5 +1,4 @@
 package br.edu.unisep.documento.model;
-
 public class Document {
     private String title;
     private String author;
