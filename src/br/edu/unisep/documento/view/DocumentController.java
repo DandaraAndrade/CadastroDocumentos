@@ -223,7 +223,7 @@ public class DocumentController {
     }
 
     private void resetFieldHighlighting() {
-        // Resetar a cor de fundo dos campos
+
         view.getTitleField().setBackground(Color.WHITE);
         view.getAuthorField().setBackground(Color.WHITE);
         view.getDateField().setBackground(Color.WHITE);
